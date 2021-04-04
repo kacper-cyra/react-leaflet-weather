@@ -1,6 +1,6 @@
 {
   "extends": ["plugin:react/recommended", "eslint:recommended", "plugin:cypress/recommended"],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "root": true,
   "env": {
     "browser": true,
@@ -8,6 +8,6 @@
     "cypress/globals": true,
     "es6": true
   },
-  "plugins": ["cypress"],
+  "plugins": ["cypress", "@typescript-eslint"],
   "ignorePatterns": [".eslintrc.js"]
 }

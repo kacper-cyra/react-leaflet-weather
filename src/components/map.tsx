@@ -1,9 +1,12 @@
-import { LatLng } from "leaflet";
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+//import OpenWeather from "../apis/openWeather";
+import { LatLng } from "leaflet";
+import { LocationMarkerMemo } from "./marker/locationMarker";
 
 const Map = ({ apiKey }: MapsProps) => {
-  const position = new LatLng(52.069, 19.48);
+  //const [markers, setMarkers] = useState([]);
+  const [position] = useState(new LatLng(0, 0));
 
   const style = {
     height: `${window.innerHeight}px`,
@@ -12,6 +15,7 @@ const Map = ({ apiKey }: MapsProps) => {
 
   return (
     <MapContainer style={style} center={position} zoom={6}>
+      <LocationMarkerMemo></LocationMarkerMemo>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
