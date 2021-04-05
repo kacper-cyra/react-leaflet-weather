@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import Map from "./components/map";
 import "leaflet/dist/leaflet.css";
+import { MapWrapper } from "./components/mapWrapper";
 
 function App() {
   return (
     <div className="App">
-      <Map apiKey={process.env.REACT_APP_API_WEATHER}></Map>
+      <MapWrapper></MapWrapper>
     </div>
   );
 }

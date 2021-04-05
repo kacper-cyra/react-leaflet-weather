@@ -1,32 +1,67 @@
-import React, { useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
-//import OpenWeather from "../apis/openWeather";
+import React, { useEffect, useState } from "react";
 import { LatLng } from "leaflet";
-import { LocationMarkerMemo } from "./marker/locationMarker";
+import { MarkerMemo, MarkerProps } from "./marker/marker";
+import OpenWeather from "../apis/openWeather";
+import { OpenWeatherDTO } from "../apis/dto/openWeatherDTO";
+import { CloudsMap } from "./maps/cloudsMap";
+import { TerrainMap } from "./maps/terrainMap";
+import { useMapEvents } from "react-leaflet";
 
-const Map = ({ apiKey }: MapsProps) => {
-  //const [markers, setMarkers] = useState([]);
-  const [position] = useState(new LatLng(0, 0));
+const Map = () => {
+  const [markersData, setMarkersData] = useState<MarkerProps[]>([]);
 
-  const style = {
-    height: `${window.innerHeight}px`,
-    width: `${window.innerWidth}px`,
-  };
+  useEffect(() => {
+    createMarker(new LatLng(10, 10));
+    events.locate();
+  }, []);
+
+  const events = useMapEvents({
+    locationfound(e) {
+      createMarker(e.latlng);
+      events.flyTo(e.latlng, events.getZoom());
+    },
+
+    click(e) {
+      createMarker(e.latlng);
+    },
+  });
+
+  useEffect(() => {}, []);
 
   return (
-    <MapContainer style={style} center={position} zoom={6}>
-      <LocationMarkerMemo></LocationMarkerMemo>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <TileLayer url={`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${apiKey}`} />
-    </MapContainer>
+    <React.Fragment>
+      <TerrainMap></TerrainMap>
+      <CloudsMap></CloudsMap>
+      {markersData.map(markerData => (
+        <MarkerMemo
+          key={markerData.position.lat + ";" + markerData.position.lng}
+          position={markerData.position}
+          city={markerData.city}
+          weather={markerData.weather}
+          iconName={markerData.iconName}
+        ></MarkerMemo>
+      ))}
+    </React.Fragment>
   );
+
+  async function createMarker(latLng: LatLng) {
+    const weatherData = await OpenWeather.getWeatherAtCoordinates(latLng);
+    if (weatherData) setMarkersData([...markersData, mapResponse(weatherData)]);
+  }
 };
 
-interface MapsProps {
-  apiKey: string | undefined;
+function mapResponse(data: OpenWeatherDTO): MarkerProps {
+  return {
+    city: data.name,
+    position: new LatLng(data.coord.lat, data.coord.lon),
+    iconName: data.weather[0].description.replace(" ", "_"),
+    weather: {
+      description: data.weather[0].description,
+      pressure: data.main.pressure,
+      temperature: Math.round((data.main.temp - 273) * 10) / 10,
+      windSpeed: data.wind.speed,
+    },
+  };
 }
 
 export default Map;

@@ -1,4 +1,4 @@
-export const ICON_SIZE = {
+export const ICON_SIZE: { [id: string]: Array<number> } = {
   broken_clouds: [112, 72],
   clear_sky: [106, 106],
   few_clouds: [117, 81],

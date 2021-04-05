@@ -6,7 +6,8 @@
     "browser": true,
     "jest": true,
     "cypress/globals": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "plugins": ["cypress", "@typescript-eslint"],
   "ignorePatterns": [".eslintrc.js"]
