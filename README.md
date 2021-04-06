@@ -1,3 +1,9 @@
+# Description
+
+It's very simple application that let's users click anywhere on the world map and check what is the weather like in this region. Application fetches data from OpenWeather API and displays it as an appropriate icon with popup containing information about current weather.
+
+[Live application](https://react-leaflet-weather.herokuapp.com/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

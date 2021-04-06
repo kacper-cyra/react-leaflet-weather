@@ -46,11 +46,11 @@ const Map = () => {
 
   async function createMarker(latLng: LatLng) {
     const weatherData = await OpenWeather.getWeatherAtCoordinates(latLng);
-    if (weatherData) setMarkersData([...markersData, mapResponse(weatherData)]);
+    if (weatherData) setMarkersData([...markersData, mapResponseData(weatherData)]);
   }
 };
 
-function mapResponse(data: OpenWeatherDTO): MarkerProps {
+function mapResponseData(data: OpenWeatherDTO): MarkerProps {
   return {
     city: data.name,
     position: new LatLng(data.coord.lat, data.coord.lon),
