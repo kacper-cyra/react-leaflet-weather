@@ -5,7 +5,7 @@ import style from "./mapWrapper.module.scss";
 import Map from "./map";
 
 export function MapWrapper() {
-  const [position] = useState(new LatLng(0, 0));
+  const [position] = useState(new LatLng(52, 19));
 
   return (
     <MapContainer className={style.mapWrapper} center={position} zoom={6}>

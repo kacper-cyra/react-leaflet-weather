@@ -11,7 +11,6 @@ const Map = () => {
   const [markersData, setMarkersData] = useState<MarkerProps[]>([]);
 
   useEffect(() => {
-    createMarker(new LatLng(10, 10));
     events.locate();
   }, []);
 
@@ -25,8 +24,6 @@ const Map = () => {
       createMarker(e.latlng);
     },
   });
-
-  useEffect(() => {}, []);
 
   return (
     <React.Fragment>
