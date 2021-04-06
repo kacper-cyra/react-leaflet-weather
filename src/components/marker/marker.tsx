@@ -19,16 +19,13 @@ export function MapMarker({ city, position, weather, iconName }: MarkerProps) {
         }
       >
         <Popup data-author="Icon vector created by titusurya - www.freepik.com">
-          <span className={styles.cityName}>{city !== "" ? city : "longitude: " + position.lng + ", latitude: " + position.lat}</span>
-          <br />
-          {weather.description ? "Description: " + weather.description : ""}
-          <br />
-          {weather.pressure ? "Pressure: " + weather.pressure + "hPa" : ""}
-          <br />
-          {weather.temperature ? "Temperature: " + weather.temperature + String.fromCharCode(176) + "C" : ""}
-          <br />
-          {weather.windSpeed ? "Wind speed: " + weather.windSpeed + "km/h" : ""}
-          <br />
+          <div className={styles.marker__popup__content}>
+            <span className={styles.cityName}>{city !== "" ? city : "longitude: " + position.lng + ", latitude: " + position.lat}</span>
+            <span>{weather.description ? "Description: " + weather.description : ""}</span>
+            <span>{weather.pressure ? "Pressure: " + weather.pressure + "hPa" : ""}</span>
+            <span>{weather.temperature ? "Temperature: " + weather.temperature + String.fromCharCode(176) + "C" : ""}</span>
+            <span>{weather.windSpeed ? "Wind speed: " + weather.windSpeed + "km/h" : ""}</span>
+          </div>
         </Popup>
       </Marker>
     </React.Fragment>
