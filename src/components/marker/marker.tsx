@@ -37,6 +37,7 @@ export interface MarkerProps {
   position: LatLng;
   iconName?: string;
   weather: {
+    id: number;
     description: string;
     pressure: number;
     temperature: number;
