@@ -1,0 +1,27 @@
+{
+  "successful": {
+    "ok": true,
+    "body": {
+      "coord": {
+        "lon": 19,
+        "lat": 52
+      },
+      "weather": [
+        {
+          "description": "clear sky"
+        }
+      ],
+      "main": {
+        "temp": 270,
+        "pressure": 1000
+      },
+      "wind": {
+        "speed": 3
+      },
+      "sys": {
+        "country": "Poland"
+      },
+      "name": "City"
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import "leaflet/dist/leaflet.css";
 import { MapWrapper } from "./components/mapWrapper";
 
