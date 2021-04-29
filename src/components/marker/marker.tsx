@@ -15,7 +15,7 @@ export function MapMarker({ city, position, weather, iconName }: MarkerProps) {
                 iconUrl: `${process.env.PUBLIC_URL}/img/${iconName}.png`,
                 iconSize: [Math.round(ICON_SIZE[iconName][0] / 2), Math.round(ICON_SIZE[iconName][1] / 2)],
               })
-            : new Icon({ iconUrl: `${process.env.PUBLIC_URL}img/marker.svg`, iconSize: [38, 105] })
+            : new Icon({ iconUrl: `${process.env.PUBLIC_URL}img/marker.png`, iconSize: [40, 45] })
         }
       >
         <Popup data-author="Icon vector created by titusurya - www.freepik.com">

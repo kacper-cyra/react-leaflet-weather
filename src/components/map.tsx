@@ -6,7 +6,7 @@ import { OpenWeatherDTO } from "../apis/dto/openWeatherDTO";
 import { CloudsMap } from "./maps/cloudsMap";
 import { TerrainMap } from "./maps/terrainMap";
 import { useMapEvents } from "react-leaflet";
-import { ICONS } from "./marker/icons";
+import { ICONS, mapIdToIcon } from "./marker/icons";
 
 const Map = () => {
   const [markersData, setMarkersData] = useState<MarkerProps[]>([]);
@@ -49,11 +49,12 @@ const Map = () => {
 };
 
 function mapResponseData(data: OpenWeatherDTO): MarkerProps {
+  console.log(data);
   const convertedDescription = data.weather[0].description.replace(" ", "_");
   return {
     city: data.name,
     position: new LatLng(data.coord.lat, data.coord.lon),
-    iconName: ICONS.includes(convertedDescription) ? convertedDescription : "",
+    iconName: ICONS.includes(convertedDescription) ? convertedDescription : mapIdToIcon(data.weather[0].id),
     weather: {
       id: data.weather[0].id,
       description: data.weather[0].description,

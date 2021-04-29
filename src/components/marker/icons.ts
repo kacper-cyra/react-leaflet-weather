@@ -10,5 +10,19 @@ export const ICONS = [
   "scattered_clouds",
   "shower_rain",
   "snow",
-  "light_snow",
 ];
+
+export function mapIdToIcon(id: number): string {
+  switch (true) {
+    case id < 300:
+      return "thunderstorm";
+    case id < 400:
+      return "light_rain";
+    case id < 600:
+      return "rain";
+    case id < 700:
+      return "snow";
+    default:
+      return "";
+  }
+}

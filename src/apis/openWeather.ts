@@ -15,7 +15,6 @@ export default class OpenWeather {
   };
 
   static checkResponseStatus(response: Response) {
-    console.log(response);
     if (!response.ok) throw new Error(response.statusText);
   }
 }
