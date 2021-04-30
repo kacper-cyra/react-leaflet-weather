@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { LatLng } from "leaflet";
-import { MarkerMemo, MarkerProps } from "./marker/marker";
+import { MarkerMemo, MarkerProps } from "./marker/Marker";
 import OpenWeather from "../apis/openWeather";
 import { OpenWeatherDTO } from "../apis/dto/openWeatherDTO";
-import { CloudsMap } from "./maps/cloudsMap";
-import { TerrainMap } from "./maps/terrainMap";
+import { CloudsMap } from "./maps/CloudsMap";
+import { TerrainMap } from "./maps/TerrainMap";
 import { LayersControl, useMapEvents } from "react-leaflet";
 import { ICONS, mapIdToIcon } from "./marker/icons";
+import { TemperatureMap } from "./maps/TemperatureMap";
+import { PressureMap } from "./maps/PressureMap";
+import { WindSpeedMap } from "./maps/WindSpeedMap";
+import { LineScale } from "./maps/controls/LineScale";
+import { MAP_TYPES, POSITION_CLASSES } from "./maps/types";
 
 const Map = () => {
   const [markersData, setMarkersData] = useState<MarkerProps[]>([]);
@@ -28,10 +33,21 @@ const Map = () => {
 
   return (
     <LayersControl>
-      <LayersControl.Overlay name="clouds">
-        <CloudsMap></CloudsMap>
-      </LayersControl.Overlay>
-      <TerrainMap></TerrainMap>
+      <LayersControl.BaseLayer name="Clouds">
+        <CloudsMap />
+      </LayersControl.BaseLayer>
+      <LayersControl.BaseLayer name="Temperature">
+        <TemperatureMap />
+        <LineScale position={POSITION_CLASSES.BOTTOMRIGHT} type={MAP_TYPES.TEMPERATURE}></LineScale>
+      </LayersControl.BaseLayer>
+      <LayersControl.BaseLayer name="Pressure">
+        <PressureMap />
+        <LineScale position={POSITION_CLASSES.BOTTOMRIGHT} type={MAP_TYPES.PRESSURE}></LineScale>
+      </LayersControl.BaseLayer>
+      <LayersControl.BaseLayer name="Wind speed">
+        <WindSpeedMap />
+      </LayersControl.BaseLayer>
+      <TerrainMap />
       {markersData.map(markerData => (
         <MarkerMemo
           key={markerData.position.lat + ";" + markerData.position.lng}
@@ -39,7 +55,7 @@ const Map = () => {
           city={markerData.city}
           weather={markerData.weather}
           iconName={markerData.iconName}
-        ></MarkerMemo>
+        />
       ))}
     </LayersControl>
   );
