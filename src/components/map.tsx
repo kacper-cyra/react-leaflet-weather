@@ -10,11 +10,12 @@ import { ICONS, mapIdToIcon } from "./marker/icons";
 import { TemperatureMap } from "./maps/TemperatureMap";
 import { PressureMap } from "./maps/PressureMap";
 import { WindSpeedMap } from "./maps/WindSpeedMap";
-import { LineScale } from "./maps/controls/LineScale";
+import { Legend } from "./maps/controls/Legend";
 import { MAP_TYPES, POSITION_CLASSES } from "./maps/types";
 
 const Map = () => {
   const [markersData, setMarkersData] = useState<MarkerProps[]>([]);
+  const [currentBaseLayerName, setCurrentBaseLayerName] = useState<MAP_TYPES>(MAP_TYPES.TEMPERATURE);
 
   useEffect(() => {
     events.locate();
@@ -29,6 +30,16 @@ const Map = () => {
     click(e) {
       createMarker(e.latlng);
     },
+
+    baselayerchange(e) {
+      const { name } = e;
+      let convertedName = name.replace(" ", "_").toUpperCase();
+      var mapType: MAP_TYPES = MAP_TYPES[convertedName as keyof typeof MAP_TYPES];
+
+      if (name) {
+        setCurrentBaseLayerName(mapType);
+      }
+    },
   });
 
   return (
@@ -36,18 +47,17 @@ const Map = () => {
       <LayersControl.BaseLayer name="Clouds">
         <CloudsMap />
       </LayersControl.BaseLayer>
-      <LayersControl.BaseLayer name="Temperature">
+      <LayersControl.BaseLayer checked name="Temperature">
         <TemperatureMap />
-        <LineScale position={POSITION_CLASSES.BOTTOMRIGHT} type={MAP_TYPES.TEMPERATURE}></LineScale>
       </LayersControl.BaseLayer>
       <LayersControl.BaseLayer name="Pressure">
         <PressureMap />
-        <LineScale position={POSITION_CLASSES.BOTTOMRIGHT} type={MAP_TYPES.PRESSURE}></LineScale>
       </LayersControl.BaseLayer>
       <LayersControl.BaseLayer name="Wind speed">
         <WindSpeedMap />
       </LayersControl.BaseLayer>
       <TerrainMap />
+      <Legend position={POSITION_CLASSES.BOTTOMRIGHT} type={currentBaseLayerName} />
       {markersData.map(markerData => (
         <MarkerMemo
           key={markerData.position.lat + ";" + markerData.position.lng}

@@ -8,4 +8,7 @@ export enum POSITION_CLASSES {
 export enum MAP_TYPES {
   TEMPERATURE = "TEMPERATURE",
   PRESSURE = "PRESSURE",
+  CLOUDS = "CLOUDS",
+  WIND_SPEED = "WIND_SPEED",
+  NONE = "",
 }
