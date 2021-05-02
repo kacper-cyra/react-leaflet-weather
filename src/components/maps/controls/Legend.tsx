@@ -1,6 +1,6 @@
 import React from "react";
 import { MAP_TYPES, POSITION_CLASSES } from "../types";
-import "./LineScale.css";
+import "./Legend.css";
 
 const VALUES: Record<string, number[]> = {
   TEMPERATURE: [-40, -20, 0, 20, 40],
